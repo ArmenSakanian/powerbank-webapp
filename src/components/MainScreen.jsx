@@ -1,48 +1,121 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MainScreen() {
-  const [balance, setBalance] = useState(150);
-  const [station, setStation] = useState("Станция #1");
+  const [location, setLocation] = useState(null);
+  const [showSupport, setShowSupport] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
-  const handleRent = () => {
-    alert("✅ Пауэрбанк выдан! (заглушка)");
-    setBalance((prev) => prev - 100);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error("Ошибка получения геолокации:", error);
+      }
+    );
+  }, []);
+
+  const handleScanQR = () => {
+    alert("📷 Открываем камеру для сканирования QR-кода...");
+    // Здесь будет логика сканера
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f0f] via-[#1c1c1c] to-[#141414] text-white p-4 flex flex-col items-center">
-      <div className="w-full max-w-md bg-[#1d1d1d] rounded-2xl shadow-xl p-5 mt-6 flex flex-col gap-6">
+    <div className="relative min-h-screen bg-black text-white">
+      {/* Карта (заглушка на фоне) */}
+      <div className="absolute inset-0 z-0">
+        {location ? (
+          <iframe
+            title="map"
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            className="brightness-75"
+            src={`https://maps.google.com/maps?q=${location.lat},${location.lng}&z=15&output=embed`}
+          ></iframe>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-gray-400">
+            Получаем геолокацию...
+          </div>
+        )}
+      </div>
 
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-white">🔋 PowerBank</h1>
-          <p className="text-gray-400 text-sm mt-1">Аренда пауэрбанков через Telegram</p>
-        </div>
-
-        <div className="bg-[#2a2a2a] rounded-xl p-4">
-          <p className="text-sm text-gray-400">💳 Баланс</p>
-          <p className="text-2xl font-semibold">{balance} ₽</p>
-        </div>
-
-        <div className="bg-[#2a2a2a] rounded-xl p-4">
-          <p className="text-sm text-gray-400">📍 Текущая станция</p>
-          <p className="text-lg">{station}</p>
-        </div>
-
+      {/* Верхние кнопки */}
+      <div className="absolute top-5 left-0 right-0 flex justify-center gap-4 z-10">
         <button
-          onClick={handleRent}
-          className="bg-[#FF9900] hover:bg-[#e78c00] text-black py-3 rounded-xl text-lg font-semibold transition"
+          onClick={() => setShowSupport(true)}
+          className="bg-[#1f1f1f] text-white px-4 py-2 rounded-xl text-sm shadow-md hover:bg-[#333]"
         >
-          ⚡ Арендовать за 100 ₽
+          🛠 Техподдержка
+        </button>
+        <button
+          onClick={() => setShowInfo(true)}
+          className="bg-[#1f1f1f] text-white px-4 py-2 rounded-xl text-sm shadow-md hover:bg-[#333]"
+        >
+          ℹ Инфо
         </button>
       </div>
 
-      <div className="mt-8 w-full max-w-md px-4 text-sm text-gray-400 flex flex-col gap-4">
-        <button className="text-left hover:text-white transition">📦 История аренды</button>
-        <button className="text-left hover:text-white transition">💰 Пополнить баланс</button>
-        <button className="text-left hover:text-white transition">🛠 Поддержка</button>
-
-        <p className="text-center text-xs text-gray-600 mt-6">© PowerBank WebApp</p>
+      {/* Нижняя кнопка */}
+      <div className="absolute bottom-6 left-0 right-0 flex justify-center z-10">
+        <button
+          onClick={handleScanQR}
+          className="bg-[#FF9900] hover:bg-[#e78c00] text-black px-8 py-4 rounded-2xl text-lg font-semibold shadow-lg transition"
+        >
+          ⚡ Взять заряд
+        </button>
       </div>
+
+      {/* Модальное окно - Поддержка */}
+      {showSupport && (
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-20">
+          <div className="bg-[#1f1f1f] p-6 rounded-2xl max-w-sm text-center">
+            <h2 className="text-lg font-bold mb-2">Техподдержка</h2>
+            <p className="text-sm text-gray-300 mb-4">
+              Напишите нам в Telegram: <br />
+              <a
+                href="https://t.me/your_support_bot"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#FF9900] underline"
+              >
+                @your_support_bot
+              </a>
+            </p>
+            <button
+              onClick={() => setShowSupport(false)}
+              className="mt-2 text-sm text-gray-400 hover:text-white"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Модальное окно - Инфо */}
+      {showInfo && (
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-20">
+          <div className="bg-[#1f1f1f] p-6 rounded-2xl max-w-sm text-center">
+            <h2 className="text-lg font-bold mb-2">Как это работает?</h2>
+            <p className="text-sm text-gray-300 mb-4">
+              1. Нажмите "Взять заряд"<br />
+              2. Отсканируйте QR-код станции<br />
+              3. Оплатите и получите пауэрбанк<br />
+              4. Верните в любую доступную станцию
+            </p>
+            <button
+              onClick={() => setShowInfo(false)}
+              className="mt-2 text-sm text-gray-400 hover:text-white"
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
