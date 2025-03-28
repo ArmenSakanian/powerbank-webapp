@@ -116,6 +116,7 @@ export default function MainScreen() {
           </div>
         </div>
       )}
+      
     </div>
   );
 }

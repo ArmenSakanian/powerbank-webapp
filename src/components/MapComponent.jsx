@@ -16,6 +16,7 @@ const MapComponent = () => {
     );
   }, []);
 
+  
   return (
     <MapContainer center={position} zoom={13} style={{ height: '100vh', width: '100vw' }}>
       <TileLayer
