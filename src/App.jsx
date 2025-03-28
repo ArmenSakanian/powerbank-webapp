@@ -1,5 +1,12 @@
-import MainScreen from "./components/MainScreen";
+import React from 'react';
+import MapComponent from './MapComponent';
+
 function App() {
-  return <MainScreen />;
+  return (
+    <div className="App">
+      <MapComponent />
+    </div>
+  );
 }
+
 export default App;
