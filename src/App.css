@@ -1,64 +1,65 @@
-body, html, #root {
+body, html, #root, .App {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-
-.App {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0085BB, #FF9900);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
-  background: linear-gradient(135deg, #0085BB, #FF9900);
   color: white;
-  font-family: 'Segoe UI', sans-serif;
-  position: relative;
 }
 
 .header {
   padding: 20px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo {
   font-size: 36px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .top-buttons {
   display: flex;
-  justify-content: center;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .top-btn {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 1px solid white;
-  padding: 8px 14px;
-  border-radius: 14px;
-  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s;
+  font-size: 14px;
 }
 
 .top-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+  flex: 1;
 }
 
 .main-button {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 30px;
   background: white;
   color: #0085BB;
   border: none;
-  padding: 16px 30px;
+  padding: 16px;
   font-size: 18px;
   border-radius: 999px;
-  font-weight: bold;
+  width: calc(100% - 60px);
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.main-button:hover {
+  background: #f0f0f0;
 }
