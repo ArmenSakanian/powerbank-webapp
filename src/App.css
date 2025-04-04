@@ -1,15 +1,65 @@
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-family: sans-serif;
-  background-color: #f9f9f9;
-  text-align: center;
-}
 body, html, #root, .App {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0085BB, #FF9900);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.header {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.top-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.top-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.top-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+  flex: 1;
+}
+
+.main-button {
+  margin: 30px;
+  background: white;
+  color: #0085BB;
+  border: none;
+  padding: 16px;
+  font-size: 18px;
+  border-radius: 999px;
+  width: calc(100% - 60px);
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.main-button:hover {
+  background: #f0f0f0;
 }
