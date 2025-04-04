@@ -8,3 +8,8 @@
   background-color: #f9f9f9;
   text-align: center;
 }
+body, html, #root, .App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
